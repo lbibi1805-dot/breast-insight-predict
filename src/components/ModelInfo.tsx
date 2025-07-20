@@ -10,7 +10,22 @@ interface ModelInfoProps {
 }
 
 export const ModelInfo: React.FC<ModelInfoProps> = ({ modelInfo }) => {
-  const accuracyPercent = modelInfo ? parseFloat(modelInfo.accuracy.replace('%', '')) : 97;
+  // Handle accuracy as either number or string, convert to percentage
+  const getAccuracyPercent = () => {
+    if (!modelInfo?.accuracy) return 97;
+    
+    const accuracy = modelInfo.accuracy;
+    if (typeof accuracy === 'string') {
+      return parseFloat(accuracy.replace('%', ''));
+    } else if (typeof accuracy === 'number') {
+      // If it's a decimal like 0.97, convert to percentage
+      return accuracy < 1 ? Math.round(accuracy * 100) : Math.round(accuracy);
+    }
+    return 97;
+  };
+
+  const accuracyPercent = getAccuracyPercent();
+  const accuracyDisplay = `${accuracyPercent}%`;
 
   return (
     <div className="space-y-6">
@@ -36,21 +51,21 @@ export const ModelInfo: React.FC<ModelInfoProps> = ({ modelInfo }) => {
           <CardContent className="space-y-3">
             <div>
               <h3 className="font-bold text-lg text-blue-900">
-                {modelInfo ? modelInfo.model_name : 'KNN'}
+                {modelInfo?.model_name || 'KNN'}
               </h3>
               <p className="text-blue-800 text-sm">
-                {modelInfo ? modelInfo.algorithm : 'K-Nearest Neighbors'}
+                {modelInfo?.algorithm || 'K-Nearest Neighbors'}
               </p>
             </div>
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
                 <span className="text-blue-700">K-Value:</span>
                 <span className="font-semibold text-blue-900">
-                  {modelInfo ? modelInfo.k_value : 3}
+                  {modelInfo?.k_value || 3}
                 </span>
               </div>
               <div className="text-xs text-blue-600">
-                Finds {modelInfo ? modelInfo.k_value : 3} most similar cases for classification
+                Finds {modelInfo?.k_value || 3} most similar cases for classification
               </div>
             </div>
           </CardContent>
@@ -67,7 +82,7 @@ export const ModelInfo: React.FC<ModelInfoProps> = ({ modelInfo }) => {
           <CardContent className="space-y-3">
             <div>
               <h3 className="font-bold text-2xl text-green-900">
-                {modelInfo ? modelInfo.accuracy : '97.08%'}
+                {accuracyDisplay}
               </h3>
               <p className="text-green-800 text-sm">Classification Accuracy</p>
             </div>
@@ -97,7 +112,7 @@ export const ModelInfo: React.FC<ModelInfoProps> = ({ modelInfo }) => {
               <div className="flex justify-between">
                 <span className="text-purple-700">Features:</span>
                 <span className="font-semibold text-purple-900">
-                  {modelInfo ? modelInfo.features_count : 9}
+                  {modelInfo?.features_count || 9}
                 </span>
               </div>
               <div className="text-xs text-purple-600">
@@ -207,13 +222,13 @@ export const ModelInfo: React.FC<ModelInfoProps> = ({ modelInfo }) => {
             <div>
               <span className="font-medium text-gray-700">Training Date:</span>
               <p className="text-gray-900">
-                {modelInfo ? modelInfo.training_date : '2025-01-20'}
+                {modelInfo?.training_date || '2025-01-20'}
               </p>
             </div>
             <div>
               <span className="font-medium text-gray-700">Dataset Source:</span>
               <p className="text-gray-900">
-                {modelInfo ? modelInfo.dataset : 'Wisconsin Breast Cancer'}
+                {modelInfo?.dataset || 'Wisconsin Breast Cancer'}
               </p>
             </div>
             <div>
