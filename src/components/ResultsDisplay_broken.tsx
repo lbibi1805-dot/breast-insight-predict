@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -220,11 +221,6 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                 <p className="text-blue-700 text-sm">{prediction.recommendation}</p>
               </div>
             )}
-          </div>
-        </div>
-                </>
-              )}
-            </p>
           </div>
         </div>
 
