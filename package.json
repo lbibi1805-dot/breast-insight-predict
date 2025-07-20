@@ -1,8 +1,20 @@
 {
-  "name": "vite_react_shadcn_ts",
+  "name": "breast-insight-predict",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "AI-powered breast cancer prediction tool with modern React interface",
   "type": "module",
+  "keywords": [
+    "breast-cancer",
+    "machine-learning",
+    "medical-ai",
+    "healthcare",
+    "react",
+    "typescript",
+    "prediction"
+  ],
+  "author": "Medical AI Research Team",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

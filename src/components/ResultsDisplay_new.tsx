@@ -18,14 +18,6 @@ interface PredictionResponse {
   confidence: number;
   model_used: string;
   model_accuracy: string;
-  // Extended fields from API
-  risk_level?: string;
-  medical_interpretation?: string;
-  recommendation?: string;
-  probabilities?: {
-    benign: number;
-    malignant: number;
-  };
 }
 
 interface ResultsDisplayProps {
@@ -153,7 +145,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
           </div>
         </div>
 
-        {/* Risk Assessment with API Data */}
+        {/* Risk Assessment */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-3">
             <h4 className="font-semibold text-gray-900 flex items-center space-x-2">
@@ -161,14 +153,8 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
               <span>Risk Assessment</span>
             </h4>
             <Badge className={`${riskAssessment.color} border-0 text-lg px-4 py-2`}>
-              {prediction.risk_level ? `${prediction.risk_level} Risk` : `${riskAssessment.level} Risk`}
+              {riskAssessment.level} Risk
             </Badge>
-            {prediction.probabilities && (
-              <div className="text-sm space-y-1">
-                <p><span className="font-medium">Benign:</span> {Math.round(prediction.probabilities.benign * 100)}%</p>
-                <p><span className="font-medium">Malignant:</span> {Math.round(prediction.probabilities.malignant * 100)}%</p>
-              </div>
-            )}
           </div>
           
           <div className="space-y-3">
@@ -185,37 +171,28 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
 
         <Separator />
 
-        {/* Clinical Interpretation from API */}
+        {/* Clinical Interpretation */}
         <div>
           <h4 className="font-semibold text-gray-900 mb-3 flex items-center space-x-2">
             <Info className="h-4 w-4 text-purple-600" />
             <span>Clinical Interpretation</span>
           </h4>
-          <div className="bg-gray-50 p-4 rounded-lg space-y-3">
-            {prediction.medical_interpretation ? (
-              <p className="text-gray-700 text-sm leading-relaxed">
-                {prediction.medical_interpretation}
-              </p>
-            ) : (
-              <p className="text-gray-700 text-sm leading-relaxed">
-                {isMalignant ? (
-                  <>
-                    The AI model has classified this tissue sample as <strong className="text-red-700">MALIGNANT</strong> with {confidencePercent}% confidence. This suggests the presence of abnormal cellular characteristics consistent with cancerous tissue.
-                  </>
-                ) : (
-                  <>
-                    The AI model has classified this tissue sample as <strong className="text-green-700">BENIGN</strong> with {confidencePercent}% confidence. This indicates normal or non-cancerous tissue characteristics without malignant features.
-                  </>
-                )}
-              </p>
-            )}
-            
-            {prediction.recommendation && (
-              <div className="mt-3 p-3 bg-blue-50 border-l-4 border-blue-400 rounded">
-                <h5 className="font-semibold text-blue-800 mb-1">Medical Recommendation</h5>
-                <p className="text-blue-700 text-sm">{prediction.recommendation}</p>
-              </div>
-            )}
+          <div className="bg-gray-50 p-4 rounded-lg">
+            <p className="text-gray-700 text-sm leading-relaxed">
+              {isMalignant ? (
+                <>
+                  The AI model has classified this tissue sample as <strong className="text-red-700">MALIGNANT</strong> with 
+                  {confidencePercent}% confidence. This suggests the presence of abnormal cellular 
+                  characteristics consistent with cancerous tissue.
+                </>
+              ) : (
+                <>
+                  The AI model has classified this tissue sample as <strong className="text-green-700">BENIGN</strong> with 
+                  {confidencePercent}% confidence. This indicates normal or non-cancerous tissue 
+                  characteristics without malignant features.
+                </>
+              )}
+            </p>
           </div>
         </div>
 

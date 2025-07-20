@@ -153,7 +153,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
           </div>
         </div>
 
-        {/* Risk Assessment with API Data */}
+        {/* Risk Assessment */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-3">
             <h4 className="font-semibold text-gray-900 flex items-center space-x-2">
@@ -200,11 +200,15 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
               <p className="text-gray-700 text-sm leading-relaxed">
                 {isMalignant ? (
                   <>
-                    The AI model has classified this tissue sample as <strong className="text-red-700">MALIGNANT</strong> with {confidencePercent}% confidence. This suggests the presence of abnormal cellular characteristics consistent with cancerous tissue.
+                    The AI model has classified this tissue sample as <strong className="text-red-700">MALIGNANT</strong> with 
+                    {confidencePercent}% confidence. This suggests the presence of abnormal cellular 
+                    characteristics consistent with cancerous tissue.
                   </>
                 ) : (
                   <>
-                    The AI model has classified this tissue sample as <strong className="text-green-700">BENIGN</strong> with {confidencePercent}% confidence. This indicates normal or non-cancerous tissue characteristics without malignant features.
+                    The AI model has classified this tissue sample as <strong className="text-green-700">BENIGN</strong> with 
+                    {confidencePercent}% confidence. This indicates normal or non-cancerous tissue 
+                    characteristics without malignant features.
                   </>
                 )}
               </p>
@@ -216,6 +220,11 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                 <p className="text-blue-700 text-sm">{prediction.recommendation}</p>
               </div>
             )}
+          </div>
+        </div>
+                </>
+              )}
+            </p>
           </div>
         </div>
 
