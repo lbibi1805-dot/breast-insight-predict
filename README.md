@@ -108,6 +108,35 @@ npm run build
 npm run build:dev
 ```
 
+## 📊 Analytics Setup
+
+This project includes Vercel Analytics for tracking page views and user interactions.
+
+### Get Started with Analytics
+
+To start counting visitors and page views, follow these steps:
+
+**1. Install the package** (Already included)
+```bash
+npm i @vercel/analytics
+```
+
+**2. Add the React component** (Already configured)
+```tsx
+import { Analytics } from "@vercel/analytics/react"
+
+// Component is already added to App.tsx
+<Analytics />
+```
+
+**3. Deploy & Visit your Site**
+
+Deploy your changes and visit the deployment to collect your page views.
+
+If you don't see data after 30 seconds, please check for content blockers and try to navigate between pages on your site.
+
+For full examples and further reference, please refer to the [Vercel Analytics documentation](https://vercel.com/docs/analytics).
+
 ## 🏗️ Project Structure
 
 ```
